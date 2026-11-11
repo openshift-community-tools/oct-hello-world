@@ -52,6 +52,10 @@ This plugin **does not** register the Community Tools section or hubs. Open from
 
 Never bake in lab hostnames, StorageClasses, or similar. See `.cursor/rules/oct-no-env-hardcoding.mdc`.
 
+## Security
+
+Rule: `.cursor/rules/oct-security.mdc`; model: oct-storefront `docs/security-model.md`. This plugin is the `plugin` level: no backend, no RBAC, no API access. Keep the Deployment hardening (`readOnlyRootFilesystem` with emptyDir `/tmp` and `/var/cache/nginx`, `automountServiceAccountToken: false`, non-root, no capabilities). The image gives group 0 write access instead of `chmod 777`. `nginx.conf` sends no CORS headers: the console loads plugins through its own proxy. Report vulnerabilities privately (SECURITY.md). If you add a backend, start from oct-storefront `docs/extension-template/backend/`.
+
 ## Catalog tile
 
 Storefront `catalog/community.yaml`: `metadata.name: oct-hello-world`, `consolePlugin: oct-hello-world`, `spec.href: /community-tools/management/hello-world`, `category: management`. **Do not list `versions[]` until the combined public image tag exists.**
